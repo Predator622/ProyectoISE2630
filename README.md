@@ -1,5 +1,7 @@
 # Indicador de Sentimiento Económico
 
+**Estudiante:** Juan David Herrera Henao.
+
 Proyecto de Sistemas Operativos 2026-30. El generador crea archivos CSV de encuestas para España, Francia o Italia. Cada agente valida y envía las encuestas de un país por un FIFO. El servidor usa un hilo recolector y un búfer circular por agente. Un hilo por agente procesa las lecturas y el temporizador cierra la recepción al vencer el plazo.
 
 ## Compilar y probar en Linux
