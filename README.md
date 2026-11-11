@@ -1,12 +1,12 @@
 # Indicador de Sentimiento Económico
 
-**Estudiante:** Juan David Herrera Henao.
+Juan David Herrera Henao · Sistemas Operativos 2026-30
 
-Proyecto de Sistemas Operativos 2026-30. El generador crea archivos CSV de encuestas para España, Francia o Italia. Cada agente valida y envía las encuestas de un país por un FIFO. El servidor usa un hilo recolector y un búfer circular por agente. Un hilo por agente procesa las lecturas y el temporizador cierra la recepción al vencer el plazo.
+El servidor recibe encuestas de España, Francia e Italia y calcula el indicador a partir de los promedios de cinco sectores. El generador crea los CSV y cada agente envía sus encuestas por un FIFO. El recolector reparte las lecturas entre los búferes de los agentes y cada hilo procesa las de su agente.
 
 ## Compilar y probar en Linux
 
-Se requiere GCC, Make y Python 3 para las pruebas.
+Usa GCC y Make para compilar. Las pruebas requieren Python 3.
 
 ```sh
 make
@@ -30,4 +30,4 @@ En otra terminal, desde la misma carpeta:
 
 Al terminar el agente, el servidor muestra su reporte parcial. Al vencer el plazo, publica el resumen general. El ISE pondera industria (40 %), servicios (30 %), consumidores (20 %), comercio (5 %) y construcción (5 %). Si falta un sector, el reporte indica que el cálculo está incompleto.
 
-El semáforo de espacios libres limita el búfer y el de registros ocupados despierta al consumidor. Un mutex protege los índices del búfer. Las pruebas incluyen cuatro agentes concurrentes con un búfer de un registro, CSV inválidos y envíos que quedan incompletos al vencer el plazo.
+Si un búfer se llena, el recolector espera a que el consumidor libere un espacio. Cuando entra una lectura, el semáforo de registros ocupados avisa al consumidor. El mutex protege los índices del búfer. Las pruebas incluyen cuatro agentes concurrentes con un búfer de un registro, CSV inválidos y envíos que quedan incompletos al vencer el plazo.
