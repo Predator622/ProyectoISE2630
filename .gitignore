@@ -1,0 +1,7 @@
+/servidorISE
+/agentePais
+/generadorCSV
+*.lock
+*.tmp.*
+encuestas_*.csv
+__pycache__/
